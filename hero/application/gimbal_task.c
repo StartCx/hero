@@ -412,6 +412,10 @@ void set_cali_gimbal_hook(const uint16_t yaw_offset, const uint16_t pitch_offset
     gimbal_control.gimbal_pitch1_motor.offset_ecd = pitch_offset;
     gimbal_control.gimbal_pitch1_motor.max_relative_angle = max_pitch;
     gimbal_control.gimbal_pitch1_motor.min_relative_angle = min_pitch;
+	
+	gimbal_control.gimbal_pitch2_motor.offset_ecd = pitch_offset;
+    gimbal_control.gimbal_pitch2_motor.max_relative_angle = max_pitch;
+    gimbal_control.gimbal_pitch2_motor.min_relative_angle = min_pitch;
 }
 
 
@@ -465,6 +469,11 @@ bool_t cmd_cali_gimbal_hook(uint16_t *yaw_offset, uint16_t *pitch_offset, fp32 *
         gimbal_control.gimbal_pitch1_motor.offset_ecd            = *pitch_offset;
         gimbal_control.gimbal_pitch1_motor.max_relative_angle    = *max_pitch;
         gimbal_control.gimbal_pitch1_motor.min_relative_angle    = *min_pitch;
+		
+		gimbal_control.gimbal_pitch2_motor.offset_ecd            = *pitch_offset;
+        gimbal_control.gimbal_pitch2_motor.max_relative_angle    = *max_pitch;
+        gimbal_control.gimbal_pitch2_motor.min_relative_angle    = *min_pitch;
+		
         gimbal_control.gimbal_cali.step = 0;
         return 1;
     }
