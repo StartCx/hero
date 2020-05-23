@@ -36,8 +36,9 @@ typedef enum
     CAN_3508_M4_ID = 0x204,
 
     CAN_YAW_MOTOR_ID = 0x205,
-    CAN_PIT_MOTOR_ID = 0x206,
+    CAN_PIT1_MOTOR_ID = 0x206,
     CAN_TRIGGER_MOTOR_ID = 0x207,
+	CAN_PIT2_MOTOR_ID = 0x208,
     CAN_GIMBAL_ALL_ID = 0x1FF,
 
 } can_msg_id_e;
@@ -123,8 +124,8 @@ extern const motor_measure_t *get_yaw_gimbal_motor_measure_point(void);
   * @param[in]      none
   * @retval         电机数据指针
   */
-extern const motor_measure_t *get_pitch_gimbal_motor_measure_point(void);
-
+extern const motor_measure_t *get_pitch1_gimbal_motor_measure_point(void);
+extern const motor_measure_t *get_pitch2_gimbal_motor_measure_point(void);
 /**
   * @brief          return the trigger 2006 motor data point
   * @param[in]      none

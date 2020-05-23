@@ -122,7 +122,7 @@ extern void gimbal_behaviour_mode_set(gimbal_control_t *gimbal_mode_set);
   * @param[in]      gimbal_mode_set:云台数据指针
   * @retval         none
   */
-extern void gimbal_behaviour_control_set(fp32 *add_yaw, fp32 *add_pitch, gimbal_control_t *gimbal_control_set);
+extern void gimbal_behaviour_control_set(fp32 *add_yaw, fp32 *add_pitch1, fp32 *add_pitch2,gimbal_control_t *gimbal_control_set);
 
 /**
   * @brief          in some gimbal mode, need chassis keep no move

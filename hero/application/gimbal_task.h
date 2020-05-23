@@ -229,6 +229,7 @@ typedef struct
     const fp32 *gimbal_INT_gyro_point;
     gimbal_motor_t gimbal_yaw_motor;
     gimbal_motor_t gimbal_pitch1_motor;
+	gimbal_motor_t gimbal_pitch2_motor;
     gimbal_step_cali_t gimbal_cali;
 } gimbal_control_t;
 

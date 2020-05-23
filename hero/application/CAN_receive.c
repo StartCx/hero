@@ -44,7 +44,7 @@ motor data,  0:chassis motor1 3508;1:chassis motor3 3508;2:chassis motor3 3508;3
 4:yaw gimbal motor 6020;5:pitch gimbal motor 6020;6:trigger motor 2006;
 电机数据, 0:底盘电机1 3508电机,  1:底盘电机2 3508电机,2:底盘电机3 3508电机,3:底盘电机4 3508电机;
 4:yaw云台电机 6020电机; 5:pitch云台电机 6020电机; 6:拨弹电机 2006电机*/
-static motor_measure_t motor_chassis[7];
+static motor_measure_t motor_chassis[8];
 
 static CAN_TxHeaderTypeDef  gimbal_tx_message;
 static uint8_t              gimbal_can_send_data[8];
@@ -75,7 +75,8 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
         case CAN_3508_M3_ID:
         case CAN_3508_M4_ID:
         case CAN_YAW_MOTOR_ID:
-        case CAN_PIT_MOTOR_ID:
+        case CAN_PIT1_MOTOR_ID:
+		case CAN_PIT2_MOTOR_ID:
         case CAN_TRIGGER_MOTOR_ID:
         {
             static uint8_t i = 0;
@@ -111,7 +112,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
   * @param[in]      rev: (0x208) 保留，电机控制电流
   * @retval         none
   */
-void CAN_cmd_gimbal(int16_t yaw, int16_t pitch, int16_t shoot, int16_t rev)
+void CAN_cmd_gimbal(int16_t yaw, int16_t pitch1, int16_t shoot, int16_t pitch2)
 {
     uint32_t send_mail_box;
     gimbal_tx_message.StdId = CAN_GIMBAL_ALL_ID;
@@ -120,12 +121,12 @@ void CAN_cmd_gimbal(int16_t yaw, int16_t pitch, int16_t shoot, int16_t rev)
     gimbal_tx_message.DLC = 0x08;
     gimbal_can_send_data[0] = (yaw >> 8);
     gimbal_can_send_data[1] = yaw;
-    gimbal_can_send_data[2] = (pitch >> 8);
-    gimbal_can_send_data[3] = pitch;
+    gimbal_can_send_data[2] = (pitch1 >> 8);
+    gimbal_can_send_data[3] = pitch1;
     gimbal_can_send_data[4] = (shoot >> 8);
     gimbal_can_send_data[5] = shoot;
-    gimbal_can_send_data[6] = (rev >> 8);
-    gimbal_can_send_data[7] = rev;
+    gimbal_can_send_data[6] = (pitch2 >> 8);
+    gimbal_can_send_data[7] = pitch2;
     HAL_CAN_AddTxMessage(&GIMBAL_CAN, &gimbal_tx_message, gimbal_can_send_data, &send_mail_box);
 }
 
@@ -219,12 +220,15 @@ const motor_measure_t *get_yaw_gimbal_motor_measure_point(void)
   * @param[in]      none
   * @retval         电机数据指针
   */
-const motor_measure_t *get_pitch_gimbal_motor_measure_point(void)
+const motor_measure_t *get_pitch1_gimbal_motor_measure_point(void)
 {
     return &motor_chassis[5];
 }
 
-
+const motor_measure_t *get_pitch2_gimbal_motor_measure_point(void)
+{
+    return &motor_chassis[7];
+}
 /**
   * @brief          return the trigger 2006 motor data point
   * @param[in]      none
